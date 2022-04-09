@@ -5,12 +5,27 @@ import Iss from "../ISS";
 
 function MapaEstacaoEspacial(props) {
   const [dados, setDados] = useState(1);
-  useEffect(() => {
-    setTimeout(async function () {
-      const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
-      const data = await res.json();
-      setDados(data);
-    }, 2000);
+  const [rastros, setRastros] = useState([{}]);
+
+  // Funcao delay
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // Requisição API
+  useEffect(async () => {
+    await delay(2000);
+    const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+    const data = await res.json();
+    setDados(data);
+
+    // ARRAY DE OBJ COM O TRAJETO FEITO 
+    setRastros([
+      ...rastros,
+      {
+        lat: dados.latitude,
+        lng: dados.longitude,
+      },
+    ]);
+
   }, [dados]);
 
   const defaultProps = {
@@ -29,7 +44,16 @@ function MapaEstacaoEspacial(props) {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <Iss  lat={dados.latitude} lng={dados.longitude} />
+        {rastros.map((rastro) => {
+          // Adiciona um "." para cada item dentro do array de rastro. Basedado nas coordenadas
+          return (
+            <h1 lat={rastro.lat} lng={rastro.lng}>
+              .
+            </h1>
+          );
+        })}
+
+        <Iss lat={dados.latitude} lng={dados.longitude} />
       </GoogleMapReact>
     </div>
   );
