@@ -1,16 +1,13 @@
 
 import './App.css';
 import MapaEstacaoEspacial from './components/MapaEstacaoEspacial';
-import MenuSuperior from './components/MenuSuperior/Index';
 
 
-function App(props) {
-
-  console.log(props)
+function App() {
   
   return (
     <div className="App">
-      <MenuSuperior />
+  
       <MapaEstacaoEspacial />
     </div>
   );
