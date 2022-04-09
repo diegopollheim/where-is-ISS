@@ -1,11 +1,7 @@
 import {useEffect, useState} from "react";
 import GoogleMapReact from "google-map-react";
 import MenuSuperior from "../MenuSuperior/Index";
-
-// Componente da ISS
-const AnyReactComponent = () => (
-  <div style={{width: "30px", height: "30px", backgroundColor: "red"}}></div>
-);
+import Iss from "../ISS";
 
 function MapaEstacaoEspacial(props) {
   const [dados, setDados] = useState(1);
@@ -33,7 +29,7 @@ function MapaEstacaoEspacial(props) {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <AnyReactComponent lat={dados.latitude} lng={dados.longitude} />
+        <Iss  lat={dados.latitude} lng={dados.longitude} />
       </GoogleMapReact>
     </div>
   );

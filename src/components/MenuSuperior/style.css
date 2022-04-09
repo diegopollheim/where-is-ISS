@@ -3,8 +3,19 @@
 body {
     font-family: 'Press Start 2P', cursive;
     color: #70e000;
-    font-size: 14px;
-   
+    font-size: 14px;  
+}
+
+/* BREAKPOINT | ESTILOS APLICADO QUANDO TELA MENOR QUE 600PX */
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 10px;
+  }
+
+  .dia-noite {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .menu {
@@ -36,6 +47,7 @@ body {
   width: 50px;
   height: 50px;
   background-image: url('/public/logo192.png');
+  background-repeat: no-repeat;
   background-size: contain;
   transform: rotate();
   animation: rotation infinite linear 10s;
