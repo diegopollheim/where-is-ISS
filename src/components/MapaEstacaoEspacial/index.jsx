@@ -1,11 +1,16 @@
 import {useEffect, useState} from "react";
-import GoogleMapReact from "google-map-react";
-import MenuSuperior from "../MenuSuperior/Index";
-import Iss from "../ISS";
 
-function MapaEstacaoEspacial(props) {
+import Iss from "../ISS";
+import {GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
+import MenuSuperior from "../MenuSuperior/Index";
+
+function MapaEstacaoEspacial() {
   const [dados, setDados] = useState(1);
   const [rastros, setRastros] = useState([{}]);
+  const [position, setPosition] = useState({
+    lat: 0.05069659588340878,
+    lng: -10.769468209507245,
+  });
 
   // Funcao delay
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -17,7 +22,7 @@ function MapaEstacaoEspacial(props) {
     const data = await res.json();
     setDados(data);
 
-    // ARRAY DE OBJ COM O TRAJETO FEITO 
+    // ADICIONANDO NOVO ITEM AO ARRAY DE OBJ COM O TRAJETO FEITO
     setRastros([
       ...rastros,
       {
@@ -26,36 +31,34 @@ function MapaEstacaoEspacial(props) {
       },
     ]);
 
+    setPosition({
+      lat: dados.latitude,
+      lng: dados.longitude,
+    });
   }, [dados]);
 
-  const defaultProps = {
-    center: {
-      lat: 0.05069659588340878,
-      lng: -10.769468209507245,
-    },
-    zoom: 0,
+  const containerStyle = {
+    width: "100vw",
+    height: "100vh",
   };
 
+  // Posicionamento default da tela
   return (
-    <div style={{height: "100vh", width: "100%"}}>
-      <MenuSuperior {...dados} />
-      <GoogleMapReact
-        bootstrapURLKeys={{key: ""}}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        {rastros.map((rastro) => {
-          // Adiciona um "." para cada item dentro do array de rastro. Basedado nas coordenadas
-          return (
-            <h1 lat={rastro.lat} lng={rastro.lng}>
-              .
-            </h1>
-          );
-        })}
+    <>
+      <MenuSuperior {...dados}/>
+      <LoadScript googleMapsApiKey="AIzaSyDdk4QLWPmk3KbK79iSwnYsFYYvFLFDaak">
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={position}
+          zoom={4}
+        >
+          {/* Child components, such as markers, info windows, etc. */}
+          <Marker position={position} />
 
-        <Iss lat={dados.latitude} lng={dados.longitude} />
-      </GoogleMapReact>
-    </div>
+          <></>
+        </GoogleMap>
+      </LoadScript>
+    </>
   );
 }
 
