@@ -3,9 +3,10 @@ import {useEffect, useState} from "react";
 import Iss from "../ISS";
 import {GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
 import MenuSuperior from "../MenuSuperior/Index";
+import Loading from "../Loaging/Loading";
 
 function MapaEstacaoEspacial() {
-  const [dados, setDados] = useState(1);
+  const [dados, setDados] = useState();
   const [rastros, setRastros] = useState([{}]);
   const [position, setPosition] = useState({
     lat: 0.05069659588340878,
@@ -21,7 +22,7 @@ function MapaEstacaoEspacial() {
     const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
     const data = await res.json();
     setDados(data);
-
+    
     // ADICIONANDO NOVO ITEM AO ARRAY DE OBJ COM O TRAJETO FEITO
     setRastros([
       ...rastros,
@@ -30,11 +31,14 @@ function MapaEstacaoEspacial() {
         lng: dados.longitude,
       },
     ]);
-
+    
     setPosition({
       lat: dados.latitude,
       lng: dados.longitude,
     });
+
+
+    
   }, [dados]);
 
   const containerStyle = {
@@ -42,18 +46,21 @@ function MapaEstacaoEspacial() {
     height: "100vh",
   };
 
+  const iconIss = "";
+
   // Posicionamento default da tela
+console.log(position)
+  if (!dados) {
+    return <Loading />;
+  }
+
   return (
     <>
-      <MenuSuperior {...dados}/>
+      <MenuSuperior {...dados} />
       <LoadScript googleMapsApiKey="AIzaSyDdk4QLWPmk3KbK79iSwnYsFYYvFLFDaak">
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={position}
-          zoom={4}
-        >
+        <GoogleMap mapContainerStyle={containerStyle} center={position} zoom={4}>
           {/* Child components, such as markers, info windows, etc. */}
-          <Marker position={position} />
+          <Marker position={position} icon={iconIss} />
 
           <></>
         </GoogleMap>
