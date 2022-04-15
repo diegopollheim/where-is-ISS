@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import Iss from "../ISS";
 import {GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
 import MenuSuperior from "../MenuSuperior/Index";
-import Loading from "../Loaging/Loading";
+import Loading from "../Loading";
 
 function MapaEstacaoEspacial() {
   const [dados, setDados] = useState();
