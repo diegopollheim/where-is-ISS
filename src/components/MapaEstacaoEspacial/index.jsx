@@ -38,8 +38,14 @@ function MapaEstacaoEspacial() {
     });
   }, [dados]);
 
+  // Remove o priemiro objeto vazio do array de rastros
+  if (rastros[0].lat == undefined) {
+    rastros.shift();
+  }
   // Icone mostrado no marcador
   const iconIss = "https://raw.githubusercontent.com/diegopollheim/where-is-ISS/master/public/iss.png";
+
+  console.log(rastros);
 
   if (!dados) {
     return <Loading />;
@@ -59,6 +65,8 @@ function MapaEstacaoEspacial() {
         >
           {/* Child components, such as markers, info windows, etc. */}
           <Marker position={position} icon={iconIss} />
+          <Polyline path={rastros} />
+
           <></>
         </GoogleMap>
       </LoadScript>
