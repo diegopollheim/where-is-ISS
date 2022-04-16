@@ -7,7 +7,7 @@ import Loading from "../Loading";
 
 function MapaEstacaoEspacial() {
   const [dados, setDados] = useState(); // Dados da API
-  const [rastros, setRastros] = useState([{}]); // Usado para fazer a linha no mapa
+  const [rastros, setRastros] = useState([]); // Usado para fazer a linha no mapa
   const [position, setPosition] = useState({
     lat: -27.096554765736826,
     lng: -48.8930125119364,
@@ -23,6 +23,11 @@ function MapaEstacaoEspacial() {
     const data = await res.json();
     setDados(data);
 
+    setPosition({
+      lat: dados.latitude,
+      lng: dados.longitude,
+    });
+
     // ADICIONANDO NOVO ITEM AO ARRAY DE OBJ COM O TRAJETO FEITO
     setRastros([
       ...rastros,
@@ -31,17 +36,12 @@ function MapaEstacaoEspacial() {
         lng: dados.longitude,
       },
     ]);
-
-    setPosition({
-      lat: dados.latitude,
-      lng: dados.longitude,
-    });
   }, [dados]);
 
   // Remove o priemiro objeto vazio do array de rastros
-  if (rastros[0].lat == undefined) {
-    rastros.shift();
-  }
+  // if (rastros[0].lat == undefined) {
+  //   rastros.shift();
+  // }
   // Icone mostrado no marcador
   const iconIss = "https://raw.githubusercontent.com/diegopollheim/where-is-ISS/master/public/iss.png";
 
