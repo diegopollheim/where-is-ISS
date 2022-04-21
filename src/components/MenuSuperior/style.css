@@ -20,6 +20,7 @@ body {
 
 .menu {
   width: 100vw;
+  background-color: #000;
   position: fixed;
   z-index: 9999;
   top: 0;
@@ -27,8 +28,9 @@ body {
 }
 
 .container {
-  background-color: #000;
   display: flex;
+  max-width: 1200px;
+  margin: auto;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
