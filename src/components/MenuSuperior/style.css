@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600&family=Josefin+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200&family=Mulish:ital,wght@0,300;0,500;1,200;1,300&family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600&family=Josefin+Slab:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200&family=Mulish:ital,wght@0,300;0,500;1,200;1,300&family=Press+Start+2P&display=swap");
 
 body {
-    font-family: 'Press Start 2P', cursive;
-    color: #70e000;
-    font-size: 14px;  
+  font-family: "Press Start 2P", cursive;
+  color: #70e000;
+  font-size: 14px;
 }
 
 /* BREAKPOINT | ESTILOS APLICADO QUANDO TELA MENOR QUE 600PX */
@@ -23,6 +23,7 @@ body {
   position: fixed;
   z-index: 9999;
   top: 0;
+  left: 0;
 }
 
 .container {
@@ -33,8 +34,6 @@ body {
   box-sizing: border-box;
   padding-left: 20px;
   padding-right: 20px;
-
- 
 }
 
 .bloco-esq {
@@ -46,7 +45,7 @@ body {
 .dia-noite {
   width: 50px;
   height: 50px;
-  background-image: url('/public/logo192.png');
+  background-image: url("/public/logo192.png");
   background-repeat: no-repeat;
   background-size: contain;
   transform: rotate();

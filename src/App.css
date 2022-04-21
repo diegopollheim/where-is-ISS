@@ -1,5 +1,12 @@
-
-
 body {
   margin: 0;
+}
+
+span {
+  color: #000;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
 }

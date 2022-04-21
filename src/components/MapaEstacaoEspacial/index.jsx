@@ -1,9 +1,11 @@
 import {useEffect, useState} from "react";
 
 import Iss from "../ISS";
-import {GoogleMap, InfoWindow, LoadScript, Marker, Polyline} from "@react-google-maps/api";
+import {Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline} from "@react-google-maps/api";
 import MenuSuperior from "../MenuSuperior/Index";
 import Loading from "../Loading";
+import locais from "../Data";
+import style from "./style.css";
 
 function MapaEstacaoEspacial() {
   const [dados, setDados] = useState(); // Dados da API
@@ -38,10 +40,13 @@ function MapaEstacaoEspacial() {
     ]);
   }, [dados]);
 
-  // Remove o priemiro objeto vazio do array de rastros
-  // if (rastros[0].lat == undefined) {
-  //   rastros.shift();
-  // }
+  var mapOptions = {
+    streetViewControl: false,
+    disableDefaultUI: true,
+    // mapTypeId: "satellite",
+    // tilt: 25,
+  };
+
   // Icone mostrado no marcador
   const iconIss = "https://raw.githubusercontent.com/diegopollheim/where-is-ISS/master/public/iss.png";
 
@@ -54,22 +59,45 @@ function MapaEstacaoEspacial() {
   return (
     <>
       <MenuSuperior {...dados} />
-      <LoadScript googleMapsApiKey="AIzaSyDdk4QLWPmk3KbK79iSwnYsFYYvFLFDaak">
-        <GoogleMap
-          mapContainerStyle={{
-            width: "100vw",
-            height: "100vh",
-          }}
-          center={position}
-          zoom={4}
-        >
-          {/* Child components, such as markers, info windows, etc. */}
-          <Marker position={position} icon={iconIss} />
-          <Polyline path={rastros} />
+      <div className="container-map">
+        <LoadScript googleMapsApiKey="AIzaSyDdk4QLWPmk3KbK79iSwnYsFYYvFLFDaak">
+          <GoogleMap
+            options={mapOptions}
+            mapContainerStyle={{
+              width: "100%",
+              height: "100%",
+            }}
+            center={position}
+            zoom={2}
+          >
+            {/* Posição da ISS */}
+            <Marker position={position} icon={iconIss} />
+            <Polyline
+              path={rastros}
+              options={{
+                strokeColor: "#FF0000",
+                strokeWeight: 2,
+              }}
+            />
+            <Circle
+              center={position}
+              radius={2000000}
+              options={{
+                strokeColor: "#000",
+                strokeOpacity: 0.8,
+                strokeWeight: 1,
+                fillColor: "#000",
+                fillOpacity: 0.3,
+              }}
+            />
 
-          <></>
-        </GoogleMap>
-      </LoadScript>
+            {/* SENAI BRUSQUE */}
+            <InfoWindow position={locais.brusque}>
+              <span>Brusque</span>
+            </InfoWindow>
+          </GoogleMap>
+        </LoadScript>
+      </div>
     </>
   );
 }
