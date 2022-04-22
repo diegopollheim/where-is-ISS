@@ -65,7 +65,7 @@ function MapaEstacaoEspacial() {
             options={mapOptions}
             mapContainerStyle={{
               width: "100%",
-              height: "100%",
+              height: "60%",
             }}
             center={position}
             zoom={2}
@@ -97,6 +97,9 @@ function MapaEstacaoEspacial() {
             </InfoWindow>
           </GoogleMap>
         </LoadScript>
+
+        <iframe width="100%" height="40%" src="https://ustream.tv/embed/17074538" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
       </div>
     </>
   );

@@ -2,7 +2,7 @@
   position: absolute;
   top: 70px;
   left: 0;
-  height: 60%;
+  height: calc(100% - 70px);
   width: 100%;
   max-width: 900px;
   z-index: 99999;
@@ -13,5 +13,6 @@
 @media only screen and (max-width: 600px) {
   .container-map {
     top: 50px;
+    height: calc(100% - 50px);
   }
 }
