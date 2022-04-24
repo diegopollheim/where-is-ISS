@@ -6,6 +6,7 @@ import MenuSuperior from "../MenuSuperior/Index";
 import Loading from "../Loading";
 import locais from "../Data";
 import style from "./style.css";
+import allRastros from '../../Data/allRastros.json';
 
 function MapaEstacaoEspacial() {
   const [dados, setDados] = useState(); // Dados da API
@@ -50,7 +51,8 @@ function MapaEstacaoEspacial() {
   // Icone mostrado no marcador
   const iconIss = "https://raw.githubusercontent.com/diegopollheim/where-is-ISS/master/public/iss.png";
 
-  console.log(rastros);
+  // console.log(rastros);
+
 
   if (!dados) {
     return <Loading />;
