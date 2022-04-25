@@ -62,7 +62,7 @@ function MapaEstacaoEspacial() {
     <>
       <MenuSuperior {...dados} />
       <div className="container-map">
-        <LoadScript googleMapsApiKey="AIzaSyDdk4QLWPmk3KbK79iSwnYsFYYvFLFDaak">
+        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
           <GoogleMap
             options={mapOptions}
             mapContainerStyle={{
