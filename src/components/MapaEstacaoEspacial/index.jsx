@@ -1,12 +1,12 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import Iss from "../ISS";
-import {Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline} from "@react-google-maps/api";
+import { Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline } from "@react-google-maps/api";
 import MenuSuperior from "../MenuSuperior/Index";
 import Loading from "../Loading";
 import locais from "../Data";
 import style from "./style.css";
-import allRastros from '../Data/allRastros.json';
+import allRastros from "../Data/allRastros.json";
 
 function MapaEstacaoEspacial() {
   const [dados, setDados] = useState(); // Dados da API
@@ -16,6 +16,7 @@ function MapaEstacaoEspacial() {
     lng: -48.8930125119364,
   });
 
+  const [posSol, setPosSol] = useState();
   // Funcao delay
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -39,6 +40,8 @@ function MapaEstacaoEspacial() {
         lng: dados.longitude,
       },
     ]);
+
+    setPosSol({ lat: dados.solar_lat, lng: dados.solar_lon });
   }, [dados]);
 
   var mapOptions = {
@@ -52,7 +55,6 @@ function MapaEstacaoEspacial() {
   const iconIss = "https://raw.githubusercontent.com/diegopollheim/where-is-ISS/master/public/iss.png";
 
   // console.log(rastros);
-
 
   if (!dados) {
     return <Loading />;
@@ -81,6 +83,8 @@ function MapaEstacaoEspacial() {
                 strokeWeight: 2,
               }}
             />
+
+            <Marker position={posSol} icon="http://openweathermap.org/img/wn/01d@2x.png" />
             <Circle
               center={position}
               radius={2000000}
@@ -100,8 +104,15 @@ function MapaEstacaoEspacial() {
           </GoogleMap>
         </LoadScript>
 
-        <iframe width="100%" height="40%" src="https://ustream.tv/embed/17074538?html5ui=1&volume=0&autoplay=true" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+        <iframe
+          width="100%"
+          height="40%"
+          src="https://ustream.tv/embed/17074538?html5ui=1&volume=0&autoplay=true"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
       </div>
     </>
   );
