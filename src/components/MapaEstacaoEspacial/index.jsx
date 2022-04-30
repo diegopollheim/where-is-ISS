@@ -6,7 +6,6 @@ import MenuSuperior from "../MenuSuperior/Index";
 import Loading from "../Loading";
 import locais from "../Data";
 import style from "./style.css";
-import allRastros from "../Data/allRastros.json";
 
 function MapaEstacaoEspacial() {
   const [dados, setDados] = useState(); // Dados da API
