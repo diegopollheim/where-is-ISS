@@ -51,7 +51,7 @@ function MapaEstacaoEspacial() {
 
       setPosSol({lat: dados.solar_lat, lng: dados.solar_lon});
     }
-  }, [dados]);
+  }, [dados, atualizar]);
 
   var mapOptions = {
     streetViewControl: false,
