@@ -11,6 +11,10 @@
 }
 
 
+iframe {
+  border: none;
+}
+
 @media only screen and (max-width: 600px) {
   .container-map {
     top: 50px;

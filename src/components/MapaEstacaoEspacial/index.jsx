@@ -36,8 +36,8 @@ function MapaEstacaoEspacial() {
       setDados(data);
 
       setPosition({
-        lat: dados.latitude,
-        lng: dados.longitude,
+        lat: data?.latitude,
+        lng: data?.longitude,
       });
 
       // ADICIONANDO NOVO ITEM AO ARRAY DE OBJ COM O TRAJETO FEITO
@@ -160,9 +160,7 @@ function MapaEstacaoEspacial() {
           height="40%"
           src="https://ustream.tv/embed/17074538?html5ui=1&volume=0&autoplay=true"
           title="YouTube video player"
-          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
         ></iframe>
       </div>
     </>
