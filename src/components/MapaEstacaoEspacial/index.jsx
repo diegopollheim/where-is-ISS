@@ -1,13 +1,21 @@
-import { useEffect, useState } from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 
 import Iss from "../ISS";
-import { Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline } from "@react-google-maps/api";
+import {Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline} from "@react-google-maps/api";
 import MenuSuperior from "../MenuSuperior/Index";
 import Loading from "../Loading";
 import locais from "../Data";
 import style from "./style.css";
+import volta01 from "../Data/voltas/volta01.json";
+import volta02 from "../Data/voltas/volta02.json";
+import volta03 from "../Data/voltas/volta03.json";
+import volta04 from "../Data/voltas/volta04.json";
+import volta05 from "../Data/voltas/volta05.json";
+import InfoIss from "../InfoIss";
 
 function MapaEstacaoEspacial() {
+  const [atualizar, setAtualizar] = useState(true); // Dados da API
+  const [showVoltas, setShowVoltas] = useState(false); // Dados da API
   const [dados, setDados] = useState(); // Dados da API
   const [rastros, setRastros] = useState([]); // Usado para fazer a linha no mapa
   const [position, setPosition] = useState({
@@ -22,25 +30,27 @@ function MapaEstacaoEspacial() {
   // Requisição API
   useEffect(async () => {
     await delay(2000);
-    const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
-    const data = await res.json();
-    setDados(data);
+    if (atualizar) {
+      const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+      const data = await res.json();
+      setDados(data);
 
-    setPosition({
-      lat: dados.latitude,
-      lng: dados.longitude,
-    });
-
-    // ADICIONANDO NOVO ITEM AO ARRAY DE OBJ COM O TRAJETO FEITO
-    setRastros([
-      ...rastros,
-      {
+      setPosition({
         lat: dados.latitude,
         lng: dados.longitude,
-      },
-    ]);
+      });
 
-    setPosSol({ lat: dados.solar_lat, lng: dados.solar_lon });
+      // ADICIONANDO NOVO ITEM AO ARRAY DE OBJ COM O TRAJETO FEITO
+      setRastros([
+        ...rastros,
+        {
+          lat: dados.latitude,
+          lng: dados.longitude,
+        },
+      ]);
+
+      setPosSol({lat: dados.solar_lat, lng: dados.solar_lon});
+    }
   }, [dados]);
 
   var mapOptions = {
@@ -61,7 +71,12 @@ function MapaEstacaoEspacial() {
 
   return (
     <>
-      <MenuSuperior {...dados} />
+      <MenuSuperior
+        showVoltas={showVoltas}
+        setShowVoltas={setShowVoltas}
+        atualizar={atualizar}
+        setAtualizar={setAtualizar}
+      />
       <div className="container-map">
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
           <GoogleMap
@@ -83,6 +98,47 @@ function MapaEstacaoEspacial() {
               }}
             />
 
+            {/* Linhas com voltas completadas */}
+            {showVoltas && (
+              <>
+                <Polyline
+                  path={volta01}
+                  options={{
+                    strokeColor: "#eeff00",
+                    strokeWeight: 2,
+                  }}
+                />
+                <Polyline
+                  path={volta02}
+                  options={{
+                    strokeColor: "#298300",
+                    strokeWeight: 2,
+                  }}
+                />
+                <Polyline
+                  path={volta03}
+                  options={{
+                    strokeColor: "#0d00c9",
+                    strokeWeight: 2,
+                  }}
+                />
+                <Polyline
+                  path={volta04}
+                  options={{
+                    strokeColor: "#9b009b",
+                    strokeWeight: 2,
+                  }}
+                />
+                <Polyline
+                  path={volta05}
+                  options={{
+                    strokeColor: "#0084d1",
+                    strokeWeight: 2,
+                  }}
+                />
+              </>
+            )}
+
             <Marker position={posSol} icon="http://openweathermap.org/img/wn/01d@2x.png" />
             <Circle
               center={position}
@@ -95,11 +151,7 @@ function MapaEstacaoEspacial() {
                 fillOpacity: 0.3,
               }}
             />
-
-            {/* SENAI BRUSQUE */}
-            <InfoWindow position={locais.brusque}>
-              <span>Brusque</span>
-            </InfoWindow>
+            <InfoIss {...dados} />
           </GoogleMap>
         </LoadScript>
 

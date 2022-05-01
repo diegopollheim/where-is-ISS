@@ -1,26 +1,25 @@
 import style from "./style.css";
 
-function MenuSuperior(dados) {
-
-const lat = dados.latitude?.toFixed(2).replace(".",",")
-const lon = dados.longitude?.toFixed(2).replace(".",",")
-
-const alt = dados?.altitude?.toString().substring(0,6).replace(".",",");
-const vel = dados?.velocity?.toString().substring(0,5)
-
-
+function MenuSuperior({atualizar, setAtualizar, showVoltas, setShowVoltas}) {
   return (
     <>
       <div className="menu">
         <div className="container">
           <div className="bloco-esq">
             <div className="info-1">
-              <p>Lat: {lat}</p>
-              <p>Lon: {lon}</p>
+              <div className="form-check">
+                <input value={atualizar} type="checkbox" onChange={() => setAtualizar(!atualizar)} />
+                <p>Parar atualizações</p>
+              </div>
+              <div className="form-check">
+                <input value={showVoltas} type="checkbox" onChange={() => setShowVoltas(!showVoltas)} />
+                <p>Mostar voltas completas</p>
+              </div>
             </div>
             <div className="info-2">
-              <p>Alt: {alt} km</p>
-              <p>Vel: {vel} Km/h</p>
+              <div className="form-check">
+              {/* ELIMINAR SE NAO FOR UTILIZAR */}
+              </div>
             </div>
           </div>
           <div className="bloco-dir">
