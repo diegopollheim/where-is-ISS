@@ -1,6 +1,6 @@
 import {useEffect, useLayoutEffect, useState} from "react";
 
-import Iss from "../Iss";
+
 import {Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline} from "@react-google-maps/api";
 import MenuSuperior from "../MenuSuperior/Index";
 import Loading from "../Loading";
