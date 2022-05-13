@@ -1,7 +1,6 @@
 import {useEffect, useLayoutEffect, useState} from "react";
 
-
-import {Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline} from "@react-google-maps/api";
+import {Circle, GoogleMap, InfoWindow, LoadScript, Marker, Polyline, useJsApiLoader} from "@react-google-maps/api";
 import MenuSuperior from "../MenuSuperior/Index";
 import Loading from "../Loading";
 import locais from "../Data";
@@ -21,6 +20,11 @@ function MapaEstacaoEspacial() {
   const [position, setPosition] = useState({
     lat: -27.096554765736826,
     lng: -48.8930125119364,
+  });
+
+  const {isLoaded, loadError} = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY, // ,
+    // ...otherOptions
   });
 
   const [posSol, setPosSol] = useState();
@@ -65,7 +69,7 @@ function MapaEstacaoEspacial() {
 
   // console.log(rastros);
 
-  if (!dados) {
+  if (!isLoaded) {
     return <Loading />;
   }
 
@@ -78,82 +82,83 @@ function MapaEstacaoEspacial() {
         setAtualizar={setAtualizar}
       />
       <div className="container-map">
-        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-          <GoogleMap
-            options={mapOptions}
-            mapContainerStyle={{
-              width: "100%",
-              height: "60%",
+        <GoogleMap
+          onLoad={(map) => {
+            window.nite.init(map);
+          }}
+          options={mapOptions}
+          mapContainerStyle={{
+            width: "100%",
+            height: "60%",
+          }}
+          center={position}
+          zoom={2}
+        >
+          {/* Posição da ISS */}
+          <Marker position={position} icon={iconIss} />
+          <Polyline
+            path={rastros}
+            options={{
+              strokeColor: "#FF0000",
+              strokeWeight: 2,
             }}
+          />
+
+          {/* Linhas com voltas completadas */}
+          {showVoltas && (
+            <>
+              <Polyline
+                path={volta01}
+                options={{
+                  strokeColor: "#eeff00",
+                  strokeWeight: 2,
+                }}
+              />
+              <Polyline
+                path={volta02}
+                options={{
+                  strokeColor: "#298300",
+                  strokeWeight: 2,
+                }}
+              />
+              <Polyline
+                path={volta03}
+                options={{
+                  strokeColor: "#0d00c9",
+                  strokeWeight: 2,
+                }}
+              />
+              <Polyline
+                path={volta04}
+                options={{
+                  strokeColor: "#9b009b",
+                  strokeWeight: 2,
+                }}
+              />
+              <Polyline
+                path={volta05}
+                options={{
+                  strokeColor: "#0084d1",
+                  strokeWeight: 2,
+                }}
+              />
+            </>
+          )}
+
+          <Marker position={posSol} icon="http://openweathermap.org/img/wn/01d@2x.png" />
+          <Circle
             center={position}
-            zoom={2}
-          >
-            {/* Posição da ISS */}
-            <Marker position={position} icon={iconIss} />
-            <Polyline
-              path={rastros}
-              options={{
-                strokeColor: "#FF0000",
-                strokeWeight: 2,
-              }}
-            />
-
-            {/* Linhas com voltas completadas */}
-            {showVoltas && (
-              <>
-                <Polyline
-                  path={volta01}
-                  options={{
-                    strokeColor: "#eeff00",
-                    strokeWeight: 2,
-                  }}
-                />
-                <Polyline
-                  path={volta02}
-                  options={{
-                    strokeColor: "#298300",
-                    strokeWeight: 2,
-                  }}
-                />
-                <Polyline
-                  path={volta03}
-                  options={{
-                    strokeColor: "#0d00c9",
-                    strokeWeight: 2,
-                  }}
-                />
-                <Polyline
-                  path={volta04}
-                  options={{
-                    strokeColor: "#9b009b",
-                    strokeWeight: 2,
-                  }}
-                />
-                <Polyline
-                  path={volta05}
-                  options={{
-                    strokeColor: "#0084d1",
-                    strokeWeight: 2,
-                  }}
-                />
-              </>
-            )}
-
-            <Marker position={posSol} icon="http://openweathermap.org/img/wn/01d@2x.png" />
-            <Circle
-              center={position}
-              radius={2000000}
-              options={{
-                strokeColor: "#000",
-                strokeOpacity: 0.8,
-                strokeWeight: 1,
-                fillColor: "#000",
-                fillOpacity: 0.3,
-              }}
-            />
-            <InfoIss {...dados} />
-          </GoogleMap>
-        </LoadScript>
+            radius={2000000}
+            options={{
+              strokeColor: "#000",
+              strokeOpacity: 0.8,
+              strokeWeight: 1,
+              fillColor: "#000",
+              fillOpacity: 0.3,
+            }}
+          />
+          <InfoIss {...dados} />
+        </GoogleMap>
 
         <iframe
           width="100%"
