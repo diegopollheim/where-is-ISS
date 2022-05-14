@@ -10,7 +10,7 @@ import GoogleMapMain from "../../GoogleMapMain/GoogleMapMain";
 import VoltasCompletas from "../../VoltasCompletas/VoltasCompletas";
 
 function ViewPaginaIndex() {
-  const {position, posSol, isLoaded} =
+  const {position, posSol, rastros, isLoaded} =
     useContext(IndexContext);
 
   const iconIss = "https://github.com/diegopollheim/where-is-ISS/blob/master/public/iss.png?raw=true";
@@ -24,8 +24,13 @@ function ViewPaginaIndex() {
       <MenuSuperior />
       <div className="container-map">
         <GoogleMapMain>
-          <Marker name="iss" position={position} icon={iconIss} />
           <Marker name="sol" position={posSol} icon="http://openweathermap.org/img/wn/01d@2x.png" />
+          <Marker name="iss" position={position} icon={iconIss} />
+          <Polyline  path={rastros}
+          options={{
+            strokeColor: "#d80000",
+            strokeWeight: 2,
+          }}/>
           <VoltasCompletas />
           <Circle
             center={position}

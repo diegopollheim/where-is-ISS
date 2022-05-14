@@ -24,7 +24,7 @@ export default function GoogleMapMain({children}) {
         height: "60%",
       }}
       center={position}
-      zoom={2}
+      zoom={3}
     >
       {children}
     </GoogleMap>
