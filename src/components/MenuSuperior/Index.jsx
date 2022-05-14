@@ -1,6 +1,10 @@
+import {useContext} from "react";
+import {IndexContext} from "../pages/Index";
 import style from "./style.css";
 
-function MenuSuperior({atualizar, setAtualizar, showVoltas, setShowVoltas}) {
+function MenuSuperior() {
+  const {showVoltas, setShowVoltas, atualizar, setAtualizar} = useContext(IndexContext);
+
   return (
     <>
       <div className="menu">
@@ -17,9 +21,7 @@ function MenuSuperior({atualizar, setAtualizar, showVoltas, setShowVoltas}) {
               </div>
             </div>
             <div className="info-2">
-              <div className="form-check">
-              {/* ELIMINAR SE NAO FOR UTILIZAR */}
-              </div>
+              <div className="form-check">{/* ELIMINAR SE NAO FOR UTILIZAR */}</div>
             </div>
           </div>
           <div className="bloco-dir">

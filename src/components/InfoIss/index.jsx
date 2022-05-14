@@ -1,16 +1,17 @@
-import style from './style.css'
+import {useContext} from "react";
+import {IndexContext} from "../pages/Index";
+import style from "./style.css";
 
-export default function InfoIss(dados) {
-
-
-  const lat = dados.latitude?.toFixed(2).replace(".",",")
-  const lon = dados.longitude?.toFixed(2).replace(".",",")
-  
-  const alt = dados?.altitude?.toString().substring(0,6).replace(".",",");
-  const vel = dados?.velocity?.toString().substring(0,5)
+export default function InfoIss() {
+  const {dados} = useContext(IndexContext);
 
 
 
+  const lat = dados.latitude?.toFixed(2).replace(".", ",");
+  const lon = dados.longitude?.toFixed(2).replace(".", ",");
+
+  const alt = dados?.altitude?.toString().substring(0, 6).replace(".", ",");
+  const vel = dados?.velocity?.toString().substring(0, 5);
 
   return (
     <>
