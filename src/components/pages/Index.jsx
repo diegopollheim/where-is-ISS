@@ -21,7 +21,7 @@ export default function Index() {
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   useEffect(async () => {
-    await delay(2000);
+    await delay(1500);
     if (atualizar) {
       const res = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
       const data = await res.json();
@@ -44,6 +44,11 @@ export default function Index() {
       setPosSol({lat: dados.solar_lat, lng: dados.solar_lon});
     }
   }, [dados, atualizar]);
+
+
+
+
+
 
   if (!dados) {
     return <Loading />;
