@@ -7,7 +7,7 @@ export default function Sobre() {
     googleMapsApiKey: "AIzaSyDdk4QLWPmk3KbK79iSwnYsFYYvFLFDaak", // ,
     // ...otherOptions
   });
-  
+
   const containerStyle = {
     width: "900px",
     height: "500px",
@@ -21,14 +21,20 @@ export default function Sobre() {
   if (isLoaded) {
     return (
       <div id="map" style={{width: "900px", height: "500px"}}>
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={4} />;
+        <GoogleMap 
+        
+        
+        options={{
+          minZoom:3
+        }}
+        mapContainerStyle={containerStyle} center={center} zoom={4} />;
       </div>
     );
   }
 
   return (
-    <>
-      <h2>Sobre</h2>
-    </>
+    
+      <h2>Carregando mapa...</h2>
+   
   );
 }

@@ -9,6 +9,7 @@ export default function GoogleMapMain({children}) {
   var mapOptions = {
     streetViewControl: false,
     disableDefaultUI: true,
+    minZoom:3
     // mapTypeId: "satellite",
     // tilt: 25,
   };
