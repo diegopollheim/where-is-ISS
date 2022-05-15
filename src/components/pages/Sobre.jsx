@@ -39,8 +39,9 @@ export default function Sobre() {
         height:50,
         width: 50
       },
-      rotation: 40,
+      rotation: 45,
     };
+
 
     return (
       <div id="map" style={{width: "900px", height: "500px"}}>
