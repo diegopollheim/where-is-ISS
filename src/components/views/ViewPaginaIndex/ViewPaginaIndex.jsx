@@ -16,7 +16,6 @@ function ViewPaginaIndex() {
   // define o angulo de rotacao da imagem
   var angulo = 45;
   if (rastros.length > 2) {
-    console.log(dados.latitude < rastros[rastros.length - 1].lat);
     if (dados.latitude < rastros[rastros.length - 1].lat) {
       angulo = -65;
     } else {

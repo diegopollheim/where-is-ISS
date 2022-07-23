@@ -55,7 +55,7 @@ export default function Sobre() {
         >
           <Marker
             onLoad={(mrk) => {
-              console.log(mrk);
+              // console.log(mrk);
             }}
             position={brusque}
             icon={iconIss}
